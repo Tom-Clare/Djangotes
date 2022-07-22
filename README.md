@@ -11,9 +11,9 @@ Create a virtual environment: `python3 -m venv [environment-name]` (I called min
 
 Activate your virtual environment: `. [environment-name]/bin/activate`
 
-Ensure your pip program will run from the virtual environment: `which pip` (Expected output: `[directory to proj root]/[environment-name]/bin/pip)
+Ensure your pip program will run from the virtual environment: `which pip` (Expected output: `[directory to proj root]/[environment-name]/bin/pip`, not your global pip that is located in `.local/something or other`)
 
-Install Django with your virtual environment's pip: `pip install django`
+Install Django with your virtual environment's pip: `pip install django`. This will install localally and not globally.
 
 Navigate `[proj root]/Djangotes`. This directory should contain `Djangotes`, `notes`, `manage.py`, and some DB file.
 
