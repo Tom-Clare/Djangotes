@@ -48,7 +48,6 @@ def logout(request):
     return HttpResponseRedirect('/notes/') # log in screen
 
 def note(request):
-    user_id = request.session.get("user_id", None) # retrieve user_id for loggd in user
     authenticator = Authwave.Authenticator(b'11111111111111111111111111111111', request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
     if authenticator.isLoggedIn() == False:
         return HttpResponseRedirect('/notes/')
