@@ -3,3 +3,4 @@ djangotes-venv
 *.pyc
 venv
 *.sqlite3
+.vscode

@@ -24,14 +24,14 @@ def index(request):
     authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
 
     if request.method == 'GET':
-        if authenticator.isLoggedIn():
+        if authenticator.isLoggedIn(): #if they're already logged in, redirect them to the notepad page
             return HttpResponseRedirect('/notes/notepad')
 
-        return render(request, 'notes/login.html')
+        return render(request, 'notes/login.html') # otherwise show the login page for the homescreen
 
 def login(request):
     authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
-    if authenticator.isLoggedIn() == True:
+    if authenticator.isLoggedIn() == True: # check they aren't logged in already
             return HttpResponseRedirect('/notes/notepad')
     else:
         return authenticator.login() # make user log in
@@ -45,7 +45,7 @@ def logout(request):
 
 def note(request):
     authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
-    if authenticator.isLoggedIn() == False:
+    if authenticator.isLoggedIn() == False: # user must be logged in
         return HttpResponseRedirect('/notes/')
 
     user = User.objects.get_or_create(id=authenticator._user.id)[0] # retrieve user from db [first result]
@@ -71,7 +71,6 @@ def note(request):
                 request.session.flush()
                 return HttpResponseRedirect("/notes/notepad")
 
-            # unset
         form = NoteForm(request.POST)
         if form.is_valid():
             # process form data
