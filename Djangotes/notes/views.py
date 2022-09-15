@@ -9,8 +9,10 @@ from datetime import datetime
 import sys
 import Authwave
 
-from .forms import LogInForm, NoteForm
+from .forms import NoteForm
 from .models import User
+
+from . import authConfig
 
 import django.shortcuts
 
@@ -19,36 +21,30 @@ import django.shortcuts
 def index(request):
     user_id = request.session.get("user_id", None)
 
-    authenticator = Authwave.Authenticator(b'11111111111111111111111111111111', request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
+    authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
 
     if request.method == 'GET':
         if authenticator.isLoggedIn():
             return HttpResponseRedirect('/notes/notepad')
 
-        form = LogInForm(initial = {
-            "new_user_id": user_id
-        })
-        context = {
-            "form": form
-        }
-        return render(request, 'notes/login.html', context)
+        return render(request, 'notes/login.html')
 
 def login(request):
-    authenticator = Authwave.Authenticator(b'11111111111111111111111111111111', request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
+    authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
     if authenticator.isLoggedIn() == True:
             return HttpResponseRedirect('/notes/notepad')
     else:
-        return authenticator.login()
+        return authenticator.login() # make user log in
 
 
 def logout(request):
-    authenticator = Authwave.Authenticator(b'11111111111111111111111111111111', request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
+    authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
     authenticator.logout()
 
     return HttpResponseRedirect('/notes/') # log in screen
 
 def note(request):
-    authenticator = Authwave.Authenticator(b'11111111111111111111111111111111', request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
+    authenticator = Authwave.Authenticator(authConfig.clientKey, request.build_absolute_uri(), request.session, django.shortcuts, "https://test.login.authwave.com/")
     if authenticator.isLoggedIn() == False:
         return HttpResponseRedirect('/notes/')
 

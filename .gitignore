@@ -1,3 +1,5 @@
 djangotes-venv
 */__pycache__/*
 *.pyc
+venv
+*.sqlite3
