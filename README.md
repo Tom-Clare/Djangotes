@@ -8,7 +8,7 @@ This page tells you all you need to know to get a local version of Djangotes run
 2. Create and activate your virtual environment
 3. Install the `django` and `authwave` libraries.
 4. Insert your API key into `notes/authConfig.py`.
-5. Run `python3 manage.py runserver`.
+5. Run `python3 manage.py runserver 8080`.
 
 ## Extended Guide
 
@@ -27,4 +27,4 @@ This project depends on the Django and Authwave libraries. To install them, run 
 Open `notes/authConfig.py` and replace the placeholder API key with your API key (which can be retrieved from your Authwave portal). Authentication with the Authwave servers is partly done through the URL of your site. If you are running this project locally, you should use the `localhost:8080` site credentials issued by Authwave. Make sure to use the correct creentials when implementing Authwave into your project.
 
 ### Starting the server
-That's all the setup completed! To see Djangotes in action, navigate to Django's root directory (the directory contianing `manage.py`) and run `python3 manage.py runserver`.
+That's all the setup completed! To see Djangotes in action, navigate to Django's root directory (the directory contianing `manage.py`) and run `python3 manage.py runserver 8080`.
